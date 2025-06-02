@@ -7,12 +7,16 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "api-platform/api-pack": "*",
         "symfony/console": "7.3.*",
         "symfony/dotenv": "7.3.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.3.*",
         "symfony/runtime": "7.3.*",
+        "symfony/stimulus-bundle": "*",
+        "symfony/ux-turbo": "*",
         "symfony/webapp-pack": "*",
+        "symfony/webpack-encore-bundle": "*",
         "symfony/yaml": "7.3.*"
     },
     "config": {
