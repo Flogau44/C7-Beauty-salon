@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\DepartmentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
@@ -20,6 +22,20 @@ class Department
 
     #[ORM\Column(length: 255)]
     private ?string $number = null;
+
+    #[ORM\ManyToOne(inversedBy: 'departments')]
+    private ?region $region_id = null;
+
+    /**
+     * @var Collection<int, Salon>
+     */
+    #[ORM\OneToMany(targetEntity: Salon::class, mappedBy: 'department_id')]
+    private Collection $salons;
+
+    public function __construct()
+    {
+        $this->salons = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -46,6 +62,48 @@ class Department
     public function setNumber(string $number): static
     {
         $this->number = $number;
+
+        return $this;
+    }
+
+    public function getRegionId(): ?region
+    {
+        return $this->region_id;
+    }
+
+    public function setRegionId(?region $region_id): static
+    {
+        $this->region_id = $region_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Salon>
+     */
+    public function getSalons(): Collection
+    {
+        return $this->salons;
+    }
+
+    public function addSalon(Salon $salon): static
+    {
+        if (!$this->salons->contains($salon)) {
+            $this->salons->add($salon);
+            $salon->setDepartmentId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSalon(Salon $salon): static
+    {
+        if ($this->salons->removeElement($salon)) {
+            // set the owning side to null (unless already changed)
+            if ($salon->getDepartmentId() === $this) {
+                $salon->setDepartmentId(null);
+            }
+        }
 
         return $this;
     }

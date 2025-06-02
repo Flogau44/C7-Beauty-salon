@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\RegionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RegionRepository::class)]
@@ -20,6 +22,20 @@ class Region
 
     #[ORM\Column(length: 255)]
     private ?string $number = null;
+
+    #[ORM\ManyToOne(inversedBy: 'regions')]
+    private ?country $country_id = null;
+
+    /**
+     * @var Collection<int, Department>
+     */
+    #[ORM\OneToMany(targetEntity: Department::class, mappedBy: 'region_id')]
+    private Collection $departments;
+
+    public function __construct()
+    {
+        $this->departments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -46,6 +62,48 @@ class Region
     public function setNumber(string $number): static
     {
         $this->number = $number;
+
+        return $this;
+    }
+
+    public function getCountryId(): ?country
+    {
+        return $this->country_id;
+    }
+
+    public function setCountryId(?country $country_id): static
+    {
+        $this->country_id = $country_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Department>
+     */
+    public function getDepartments(): Collection
+    {
+        return $this->departments;
+    }
+
+    public function addDepartment(Department $department): static
+    {
+        if (!$this->departments->contains($department)) {
+            $this->departments->add($department);
+            $department->setRegionId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepartment(Department $department): static
+    {
+        if ($this->departments->removeElement($department)) {
+            // set the owning side to null (unless already changed)
+            if ($department->getRegionId() === $this) {
+                $department->setRegionId(null);
+            }
+        }
 
         return $this;
     }

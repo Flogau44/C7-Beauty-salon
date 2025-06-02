@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\SalesAverageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SalesAverageRepository::class)]
@@ -23,6 +25,17 @@ class SalesAverage
 
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
+
+    /**
+     * @var Collection<int, sales>
+     */
+    #[ORM\OneToMany(targetEntity: sales::class, mappedBy: 'salesAverage')]
+    private Collection $sales_id;
+
+    public function __construct()
+    {
+        $this->sales_id = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,6 +74,36 @@ class SalesAverage
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, sales>
+     */
+    public function getSalesId(): Collection
+    {
+        return $this->sales_id;
+    }
+
+    public function addSalesId(sales $salesId): static
+    {
+        if (!$this->sales_id->contains($salesId)) {
+            $this->sales_id->add($salesId);
+            $salesId->setSalesAverage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSalesId(sales $salesId): static
+    {
+        if ($this->sales_id->removeElement($salesId)) {
+            // set the owning side to null (unless already changed)
+            if ($salesId->getSalesAverage() === $this) {
+                $salesId->setSalesAverage(null);
+            }
+        }
 
         return $this;
     }

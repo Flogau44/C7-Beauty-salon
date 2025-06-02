@@ -21,6 +21,12 @@ class Sales
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
+    #[ORM\ManyToOne(inversedBy: 'sales')]
+    private ?salon $salon_id = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sales_id')]
+    private ?SalesAverage $salesAverage = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +52,30 @@ class Sales
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getSalonId(): ?salon
+    {
+        return $this->salon_id;
+    }
+
+    public function setSalonId(?salon $salon_id): static
+    {
+        $this->salon_id = $salon_id;
+
+        return $this;
+    }
+
+    public function getSalesAverage(): ?SalesAverage
+    {
+        return $this->salesAverage;
+    }
+
+    public function setSalesAverage(?SalesAverage $salesAverage): static
+    {
+        $this->salesAverage = $salesAverage;
 
         return $this;
     }
