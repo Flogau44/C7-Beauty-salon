@@ -35,7 +35,7 @@ class Salon
     /**
      * @var Collection<int, user>
      */
-    #[ORM\OneToMany(targetEntity: user::class, mappedBy: 'salon')]
+    #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'salon')]
     private Collection $user_id;
 
     /**
@@ -123,7 +123,7 @@ class Salon
         return $this->user_id;
     }
 
-    public function addUserId(user $userId): static
+    public function addUserId(User $userId): static
     {
         if (!$this->user_id->contains($userId)) {
             $this->user_id->add($userId);
@@ -133,7 +133,7 @@ class Salon
         return $this;
     }
 
-    public function removeUserId(user $userId): static
+    public function removeUserId(User $userId): static
     {
         if ($this->user_id->removeElement($userId)) {
             // set the owning side to null (unless already changed)
