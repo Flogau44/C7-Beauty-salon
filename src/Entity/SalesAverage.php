@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\SalesAverageRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use App\Repository\SalesAverageRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: SalesAverageRepository::class)]
 #[ApiResource]
+#[GetCollection]
 class SalesAverage
 {
     #[ORM\Id]
@@ -29,7 +31,7 @@ class SalesAverage
     /**
      * @var Collection<int, sales>
      */
-    #[ORM\OneToMany(targetEntity: sales::class, mappedBy: 'salesAverage')]
+    #[ORM\OneToMany(targetEntity: Sales::class, mappedBy: 'salesAverage')]
     private Collection $sales_id;
 
     public function __construct()
@@ -86,7 +88,7 @@ class SalesAverage
         return $this->sales_id;
     }
 
-    public function addSalesId(sales $salesId): static
+    public function addSalesId(Sales $salesId): static
     {
         if (!$this->sales_id->contains($salesId)) {
             $this->sales_id->add($salesId);
@@ -96,7 +98,7 @@ class SalesAverage
         return $this;
     }
 
-    public function removeSalesId(sales $salesId): static
+    public function removeSalesId(Sales $salesId): static
     {
         if ($this->sales_id->removeElement($salesId)) {
             // set the owning side to null (unless already changed)

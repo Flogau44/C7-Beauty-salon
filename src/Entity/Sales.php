@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\SalesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SalesRepository;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 
 #[ORM\Entity(repositoryClass: SalesRepository::class)]
 #[ApiResource]
+#[GetCollection]
 class Sales
 {
     #[ORM\Id]
@@ -22,7 +24,7 @@ class Sales
     private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'sales')]
-    private ?salon $salon_id = null;
+    private ?Salon $salon_id = null;
 
     #[ORM\ManyToOne(inversedBy: 'sales_id')]
     private ?SalesAverage $salesAverage = null;
@@ -56,12 +58,12 @@ class Sales
         return $this;
     }
 
-    public function getSalonId(): ?salon
+    public function getSalonId(): ?Salon
     {
         return $this->salon_id;
     }
 
-    public function setSalonId(?salon $salon_id): static
+    public function setSalonId(?Salon $salon_id): static
     {
         $this->salon_id = $salon_id;
 

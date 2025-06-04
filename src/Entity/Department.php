@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\DepartmentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use App\Repository\DepartmentRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: DepartmentRepository::class)]
 #[ApiResource]
+#[GetCollection]
 class Department
 {
     #[ORM\Id]
@@ -24,7 +26,7 @@ class Department
     private ?string $number = null;
 
     #[ORM\ManyToOne(inversedBy: 'departments')]
-    private ?region $region_id = null;
+    private ?Region $region_id = null;
 
     /**
      * @var Collection<int, Salon>
@@ -66,12 +68,12 @@ class Department
         return $this;
     }
 
-    public function getRegionId(): ?region
+    public function getRegionId(): ?Region
     {
         return $this->region_id;
     }
 
-    public function setRegionId(?region $region_id): static
+    public function setRegionId(?Region $region_id): static
     {
         $this->region_id = $region_id;
 

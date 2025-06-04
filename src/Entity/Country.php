@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CountryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CountryRepository::class)]
 #[ApiResource]
+#[GetCollection]
 class Country
 {
     #[ORM\Id]

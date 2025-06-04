@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use App\Repository\SalonRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SalonRepository;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: SalonRepository::class)]
 #[ApiResource]
+#[GetCollection]
 class Salon
 {
     #[ORM\Id]
@@ -26,11 +28,11 @@ class Salon
     #[ORM\Column(length: 255)]
     private ?string $staff_number = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $opening_date = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $opening_date = null;
 
     #[ORM\ManyToOne(inversedBy: 'salons')]
-    private ?department $department_id = null;
+    private ?Department $department_id = null;
 
     /**
      * @var Collection<int, user>
@@ -91,24 +93,24 @@ class Salon
         return $this;
     }
 
-    public function getOpeningDate(): ?string
+    public function getOpeningDate(): ?\DateTimeImmutable
     {
         return $this->opening_date;
     }
 
-    public function setOpeningDate(string $opening_date): static
+    public function setOpeningDate(\DateTimeImmutable $opening_date): static
     {
         $this->opening_date = $opening_date;
 
         return $this;
     }
 
-    public function getDepartmentId(): ?department
+    public function getDepartmentId(): ?Department
     {
         return $this->department_id;
     }
 
-    public function setDepartmentId(?department $department_id): static
+    public function setDepartmentId(?Department $department_id): static
     {
         $this->department_id = $department_id;
 
