@@ -1,6 +1,6 @@
 # C7-Beauty-salon
 
-BeautySales API allows beauty salons in France to record sales figures and compare them with competitors.
+beauty_salon API allows beauty salons in France to record sales figures and compare them with competitors.
 
 Key features:
 
@@ -127,7 +127,7 @@ php bin/console doctrine:migrations:migrate
 php bin/console doctrine:fixtures:load
 ```
 
-Now you can check your phpmyadmin, you should have all the data in beautysales database.
+Now you can check your phpmyadmin, you should have all the data in beauty_salon database.
 
 ## Create JWT for authentication:
 
@@ -165,7 +165,7 @@ symfony server:start
 
 1. Register a New User
 
-    To register in BeautySales:
+    To register in beauty_salon:
 
 -   Use the POST request on /api/register
 -   Click "Try it out"
