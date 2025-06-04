@@ -36,7 +36,7 @@ This project is a Symfony project with version 7.3 and PHP version 8.4 on Window
 
 So you may need :
 
--   install PHP 8.4 or higher (you can also use xampp)
+-   install PHP 8.2 or higher (you can also use xampp)
 -   install composer (see the installation guide: [Composer Windows](hhttps://getcomposer.org/doc/00-intro.md#installation-windows))
 
 If you want to check if your computer meets all requirements, open your console terminal and run this command :
