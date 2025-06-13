@@ -22,7 +22,7 @@ Concise and to the point! 😊 Let me know if you'd like further refinements.
 
 1. [Technical requirements](#Technicalrequirements)
 2. [Installation](#installation)
-3. [DataBase Create](#dataBase-create)
+3. [DataBase Create and Setup](#dataBase-create-and-setup)
 4. [Create JWT for authentication](#create-JWT-for-authentication)
 5. [How to use this API](#how-to-use-this-api)
 6. [Built With](#built-with)
@@ -37,7 +37,7 @@ This project is a Symfony project with version 7.3 and PHP version 8.4 on Window
 So you may need :
 
 -   install PHP 8.2 or higher (you can also use xampp)
--   install composer (see the installation guide: [Composer Windows](hhttps://getcomposer.org/doc/00-intro.md#installation-windows))
+-   install composer (see the installation guide: [Composer Windows](https://getcomposer.org/doc/00-intro.md#installation-windows))
 
 If you want to check if your computer meets all requirements, open your console terminal and run this command :
 
@@ -97,7 +97,7 @@ symfony console about
 
 You'll probably also need to customize your ".env" or ".env.local" file and do a few other project-specific tasks :
 
-## DataBase Create :
+## DataBase Create and Setup
 
 -   add a ".env.local" file to the project
 -   copy/paste the .env file into the .env.local and configure :
